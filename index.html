@@ -1590,7 +1590,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
       <div>
         <h4>VISIT</h4>
         <p>Operaverse · Youth Performance Arcade<br>Singapore Riverfront<br>Open Tuesday to Sunday, 10am to 7pm</p>
-        <p class="foot__credit">An adaptive reuse project designed by <b>Nafiah Shariff</b></p>
+        <p class="foot__credit">An adaptive reuse project designed by <b style="white-space:nowrap">Nafiah Shariff</b><br>Lecturer: Cagil Toker<br>Raffles College of Higher Education, Singapore</p>
       </div>
       <div>
         <h4>EXPLORE</h4>
@@ -1700,6 +1700,7 @@ document.documentElement.className = "js";
   if (hc) {
     var hx = hc.getContext("2d"), bits = [], hw = 0, hh = 0, dpr = Math.min(devicePixelRatio || 1, 2), vis = true, last = 0;
     var hcols = [P.red, P.navy, P.lime, P.aqua, P.grey];
+    var markPaths = ([["r","M184.73 155.40L184.73 90.06L184.73 68.14L173.98 74.19L172.49 75.56L172.49 162.64Z"],["l","M202.70 145.44L202.70 104.32L209.20 100.94L209.20 89.62L198.46 95.37L196.11 94.88L188.15 90.10L187.36 90.27L187.15 90.91L187.15 100.73L192.62 104.53L192.62 151.02Z"],["r","M224.33 170.73L224.33 47.49L215.54 52.00L211.73 54.35L211.73 162.50L214.23 164.63Z"],["l","M266.09 170.56L300.03 150.94L304.89 147.53L304.89 96.15L300.66 98.24L295.09 101.49L295.09 141.19L285.75 146.99L266.12 158.26L245.92 146.77L236.88 141.28L236.88 101.94L234.93 100.28L229.69 97.27L227.25 96.49L227.25 147.39L228.49 148.82Z"],["l","M255.57 73.78L256.13 67.94L256.13 61.93L251.31 64.12L227.28 78.38L227.28 90.04Z"],["r","M273.15 71.95L273.15 34.88L259.05 34.88L259.05 71.89L265.98 67.99Z"],["l","M304.92 90.09L304.92 78.49L279.09 63.23L277.38 62.26L276.27 62.26L276.27 73.64Z"],["r","M320.40 163.00L320.40 54.34L307.79 47.13L307.79 170.79Z"],["l","M339.41 151.35L339.41 104.80L344.69 100.81L344.69 91.19L344.31 90.44L343.48 90.36L337.81 93.86L333.91 95.51L323.12 89.61L323.12 101.19L329.12 104.30L329.12 144.69L330.94 146.50Z"],["r","M359.71 162.63L359.71 75.21L351.19 70.16L347.31 68.55L347.31 155.24L354.52 160.00Z"]]).map(function (m) { return [m[0], new Path2D(m[1])]; });
     function sizeHero() { hw = hc.clientWidth; hh = hc.clientHeight; hc.width = hw * dpr; hc.height = hh * dpr; hx.setTransform(dpr, 0, 0, dpr, 0, 0); }
     function seed() {
       bits = [];
@@ -1708,6 +1709,12 @@ document.documentElement.className = "js";
         var side = Math.random() < .5 ? Math.random() * hw * .22 : hw * .78 + Math.random() * hw * .22;
         bits.push({ x: side, y: Math.random() * hh, s: 8 + Math.random() * 18, v: 8 + Math.random() * 22, rot: Math.random() * 3, vr: (Math.random() - .5) * .6, c: hcols[(Math.random() * hcols.length) | 0], a: .35 + Math.random() * .5 });
       }
+      // a few Operaverse logo marks fall with the blocks
+      var nm = hw < 600 ? 3 : 6;
+      for (var j = 0; j < nm; j++) {
+        var left = j % 2 === 0, sx = left ? hw * (.05 + Math.random() * .12) : hw * (.83 + Math.random() * .12);
+        bits.push({ mark: true, x: sx, y: (j / nm) * hh * 1.2 - hh * .1, s: (hw < 600 ? 40 : 64) + Math.random() * (hw < 600 ? 14 : 36), v: 14 + Math.random() * 16, rot: (Math.random() - .5) * .5, vr: (Math.random() - .5) * .25, a: .55 + Math.random() * .3 });
+      }
     }
     function frame(dt) {
       hx.clearRect(0, 0, hw, hh);
@@ -1715,6 +1722,11 @@ document.documentElement.className = "js";
         b.y += b.v * dt; b.rot += b.vr * dt;
         if (b.y - b.s > hh) { b.y = -b.s * 2; }
         hx.save(); hx.translate(b.x, b.y); hx.rotate(b.rot); hx.globalAlpha = b.a;
+        if (b.mark) {
+          var k = b.s / 200; hx.scale(k, k); hx.translate(-266, -103);
+          markPaths.forEach(function (m) { hx.fillStyle = m[0] === "r" ? P.red : P.lime; hx.fill(m[1], "evenodd"); });
+          hx.restore(); return;
+        }
         hx.fillStyle = b.c; hx.fillRect(-b.s / 2, -b.s / 2, b.s, b.s);
         hx.globalAlpha = b.a * .5; hx.fillStyle = "#fff"; hx.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * .22);
         hx.restore();
