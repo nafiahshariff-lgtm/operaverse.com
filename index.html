@@ -401,9 +401,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
 
 /* staged hero text after logo */
 .splash{ display:none; }
-.js .splash{ position:fixed; inset:0; z-index:500; background:var(--white); display:grid; place-items:center; cursor:pointer; transition: opacity .5s var(--ease), visibility .5s; }
+.js .splash{ position:fixed; inset:0; z-index:500; background:var(--white); display:grid; place-items:center; cursor:pointer; overflow:hidden; transition: opacity .5s var(--ease), visibility .5s, background-color .6s var(--ease); }
+.splash.clear{ background:transparent; }
 .js .splash{ perspective:1400px; }
-.splash__spin{ width:min(600px,82vw); transform-style:preserve-3d; animation: splashSpin 3.6s cubic-bezier(.65,0,.35,1) 2s both; }
+.splash__spin{ width:min(600px,82vw); transform-style:preserve-3d; animation: splashSpin 1.5s cubic-bezier(.65,0,.35,1) 2s both; }
+.splash.boom .splash__spin{ animation:none; transform:scale(0); opacity:0; transition: transform .25s cubic-bezier(.5,0,1,.5), opacity .25s; }
+.splash__mini{ position:absolute; left:50%; top:50%; width:var(--w,56px); height:auto; margin:calc(var(--w,56px) * -.36) 0 0 calc(var(--w,56px) * -.5); pointer-events:none; will-change:transform,opacity; }
 .splash svg{ width:100%; height:auto; display:block; shape-rendering:geometricPrecision; animation: splashIn 2s var(--ease) both; }
 @keyframes splashIn{
   0%{ opacity:0; transform:scale(.86); filter:brightness(2.4); }
@@ -416,10 +419,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[t
   100%{ opacity:1; transform:scale(1); filter:none; } }
 @keyframes splashSpin{
   0%{ transform: rotateY(0deg) scale(1); }
-  50%{ transform: rotateY(180deg) scale(.88); }
-  100%{ transform: rotateY(360deg) scale(1); } }
+  50%{ transform: rotateY(180deg) scale(.9); }
+  100%{ transform: rotateY(360deg) scale(1.06); } }
 .splash.out{ opacity:0; visibility:hidden; }
-.splash.out .splash__spin{ animation:none; transform:scale(1.12); transition: transform .5s var(--ease); }
+.splash.out .splash__spin{ animation:none; transform:scale(0); opacity:0; }
 html.splashing{ overflow:hidden; }
 .js .nav{ transition: transform .6s var(--snap); }
 html.splashing .nav{ transform:translateY(-110%); }
@@ -1738,13 +1741,34 @@ document.documentElement.className = "js";
   var splash = $("#splash");
   if (splash && !reduce && heroLogo && scrollY < 40) {
     document.documentElement.classList.add("splashing");
-    var splashGone = false;
+    var splashGone = false, boomed = false;
     var endSplash = function () {
       if (splashGone) return; splashGone = true;
       splash.classList.add("out"); document.documentElement.classList.remove("splashing");
-      setTimeout(buildLogo, 200); setTimeout(function () { splash.remove(); }, 700);
+      setTimeout(buildLogo, 150); setTimeout(function () { splash.remove(); }, 900);
     };
-    setTimeout(endSplash, 5800); splash.addEventListener("click", endSplash);
+    // spin once, then explode into mini logo marks that fly out across the page
+    var boom = function () {
+      if (boomed || splashGone) return; boomed = true;
+      splash.classList.add("boom");
+      var n = innerWidth < 600 ? 22 : 36, R = Math.hypot(innerWidth, innerHeight) * .62;
+      for (var i = 0; i < n; i++) {
+        var a = (i / n) * Math.PI * 2 + (Math.random() - .5) * .35, d = R * (.45 + Math.random() * .6);
+        var w = (innerWidth < 600 ? 34 : 50) + Math.random() * (innerWidth < 600 ? 30 : 60);
+        var m = el("div", "splash__mini", '<svg viewBox="0 0 200 145" style="width:100%;height:auto;display:block"><use href="#ov-mark"/></svg>');
+        m.style.setProperty("--w", w + "px"); splash.appendChild(m);
+        var rz = (Math.random() - .5) * 540;
+        m.animate([
+          { transform: "translate(0,0) scale(.2) rotate(0deg)", opacity: 1 },
+          { transform: "translate(" + Math.cos(a) * d * .75 + "px," + Math.sin(a) * d * .75 + "px) scale(1) rotate(" + rz * .5 + "deg)", opacity: 1, offset: .6 },
+          { transform: "translate(" + Math.cos(a) * d + "px," + Math.sin(a) * d + "px) scale(.85) rotate(" + rz + "deg)", opacity: 0 }
+        ], { duration: 1100 + Math.random() * 300, easing: "cubic-bezier(.15,.7,.3,1)", fill: "forwards" });
+      }
+      setTimeout(function () { splash.classList.add("clear"); }, 550);
+      setTimeout(endSplash, 1150);
+    };
+    setTimeout(boom, 3500);
+    splash.addEventListener("click", function () { if (!boomed) boom(); });
   } else {
     if (splash) splash.remove();
     if (heroLogo) requestAnimationFrame(buildLogo);
