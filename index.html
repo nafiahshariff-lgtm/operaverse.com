@@ -617,6 +617,9 @@ html.splashing .nav{ transform:translateY(-110%); }
 .forge__prev{ background:var(--mist); border:2.5px solid var(--black); border-radius:14px; aspect-ratio:1/2; display:grid; place-items:center; }
 .forge__prev svg{ width:100%; height:100%; }
 .studio__bar{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; align-items:center; }
+.gpick .gpick__l{ font-family:var(--display); font-weight:700; text-transform:uppercase; }
+.gpick button{ font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:1.05rem; letter-spacing:.03em; padding:.45em 1.2em; border-radius:999px; border:2.5px solid var(--white); background:transparent; color:var(--white); cursor:pointer; transition: background .2s, color .2s; }
+.gpick button[aria-pressed="true"]{ background:var(--lime); border-color:var(--lime); color:var(--black); }
 .studio__bar label{ font-family:var(--display); font-weight:700; text-transform:uppercase; }
 .studio__bar input{ font:inherit; font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:1.05rem; border:2.5px solid var(--black); border-radius:11px; padding:.5em .7em; width:min(220px,100%); background:var(--white); color:var(--black); }
 @media (max-width:900px){ .studio{ grid-template-columns:minmax(0,1fr); } .stage{ max-width:520px; max-height:62svh; margin-inline:auto; width:100%; } }
@@ -892,8 +895,7 @@ html.splashing .nav{ transform:translateY(-110%); }
 .foot__nav a{ font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:.03em; text-decoration:none; font-size:1.1rem; }
 .foot__nav a:hover{ color:var(--lime); }
 .foot p{ color:color-mix(in srgb,var(--white) 80%,var(--black)); font-size:.98rem; }
-.foot p.foot__credit{ margin-top:1rem; color:var(--white); }
-.foot__credit b{ color:var(--lime); font-weight:700; }
+.foot p.foot__credit{ margin-top:1rem; }
 .foot__keys{ font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:clamp(1.6rem,5vw,3.2rem); margin-top:2.4rem; line-height:1; }
 .foot__keys span:nth-child(1){ color:var(--red); } .foot__keys span:nth-child(2){ color:var(--aqua); } .foot__keys span:nth-child(3){ color:var(--white); } .foot__keys span:nth-child(4){ color:var(--lime); }
 @media (max-width:820px){ .foot__grid{ grid-template-columns:1fr; } }
@@ -1169,6 +1171,11 @@ html.splashing .nav{ transform:translateY(-110%); }
           <div class="stage__hint" aria-hidden="true"><span>Drag or tap items</span><span id="stageCount">0 items on</span></div>
           <svg class="figure" id="figure" viewBox="0 0 240 360" role="img" aria-label="Your opera character"></svg>
           <div class="stage__name" id="stageName">My Character</div>
+        </div>
+        <div class="studio__bar gpick" id="genderPick" role="group" aria-label="Choose your character">
+          <span class="gpick__l">My character is a</span>
+          <button type="button" data-g="girl" aria-pressed="false">Girl</button>
+          <button type="button" data-g="boy" aria-pressed="true">Boy</button>
         </div>
         <div class="studio__bar">
           <button class="btn btn--lime btn--sm" type="button" id="dressRandom">Surprise me</button>
@@ -1712,7 +1719,7 @@ html.splashing .nav{ transform:translateY(-110%); }
       <div>
         <h4>VISIT</h4>
         <p>Operaverse · Youth Performance Arcade<br>Singapore Riverfront<br>Open Tuesday to Sunday, 10am to 7pm</p>
-        <p class="foot__credit">An adaptive reuse project designed by <b style="white-space:nowrap">Nafiah Shariff</b><br>Lecturer: Cagil Toker<br>BA Final Major Project, Interior Architecture and Spatial Design, 2026<br>Raffles College of Higher Education, Singapore</p>
+        <p class="foot__credit">An adaptive reuse project designed by <span style="white-space:nowrap">Nafiah Shariff</span><br>Lecturer: Cagil Toker<br>BA Final Major Project, Interior Architecture and Spatial Design, 2026<br>Raffles College of Higher Education, Singapore</p>
       </div>
       <div>
         <h4>EXPLORE</h4>
@@ -2061,10 +2068,24 @@ document.documentElement.className = "js";
       R(56, 146, 22, 84, P.white, OL) + R(162, 146, 22, 84, P.white, OL) + R(78, 140, 84, 162, P.white, OL) +
       R(110, 126, 20, 16, P.white, OL);
   }
+  var GENDER = "boy";
+  function hairBack() {
+    // long hair that falls behind the shoulders (girl only)
+    return GENDER === "girl" ? R(80, 62, 80, 112, P.black) : "";
+  }
   function baseHead() {
+    if (GENDER === "girl") {
+      return R(90, 66, 60, 64, P.white, OL) + R(88, 56, 64, 18, P.black) + R(86, 58, 10, 66, P.black) + R(144, 58, 10, 66, P.black) +
+        R(106, 38, 28, 20, P.black) + R(102, 46, 36, 10, P.black) + R(116, 34, 8, 6, P.red);
+    }
     return R(90, 66, 60, 64, P.white, OL) + R(88, 58, 64, 14, P.black) + R(88, 58, 8, 40, P.black) + R(144, 58, 8, 40, P.black);
   }
   function plainFace() {
+    if (GENDER === "girl") {
+      return R(102, 86, 14, 2, P.black) + R(124, 86, 14, 2, P.black) + R(104, 92, 10, 8, P.black) + R(126, 92, 10, 8, P.black) +
+        R(101, 90, 4, 3, P.black) + R(135, 90, 4, 3, P.black) + R(98, 104, 10, 6, P.red, ' opacity=".45"') + R(132, 104, 10, 6, P.red, ' opacity=".45"') +
+        R(113, 113, 14, 5, P.red) + R(116, 112, 8, 2, P.red);
+    }
     return R(102, 84, 14, 3, P.black) + R(124, 84, 14, 3, P.black) + R(104, 92, 10, 7, P.black) + R(126, 92, 10, 7, P.black) + R(114, 114, 12, 4, P.red);
   }
   function hands() { return R(54, 228, 26, 20, P.white, OL) + R(160, 228, 26, 20, P.white, OL); }
@@ -2184,7 +2205,7 @@ document.documentElement.className = "js";
     if (!figure) return;
     var s = '<g class="bob">';
     s += '<g class="slot" data-slot="flags">' + drawItem("flags", find("flags", EQUIP.flags)) + "</g>";
-    s += baseBody();
+    s += hairBack() + baseBody();
     s += '<g class="slot" data-slot="robe">' + drawItem("robe", find("robe", EQUIP.robe), robeColor) + "</g>";
     s += baseHead();
     s += '<g class="slot" data-slot="face">' + (EQUIP.face ? drawItem("face", find("face", EQUIP.face)) : plainFace()) + "</g>";
@@ -2321,6 +2342,13 @@ document.documentElement.className = "js";
     wpanel.addEventListener("pointerup", endDrag);
     wpanel.addEventListener("pointercancel", endDrag);
 
+    var setGender = function (g) {
+      GENDER = g;
+      $$("#genderPick button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.g === g)); });
+      renderFigure();
+    };
+    $$("#genderPick button").forEach(function (b) { b.addEventListener("click", function () { setGender(b.dataset.g); }); });
+    window.__setGender = setGender;
     $("#dressReset").addEventListener("click", function () { SLOTS.forEach(function (k) { EQUIP[k] = null; }); robeColor = null; renderFigure(); renderPanel(); });
     $("#dressRandom").addEventListener("click", function () {
       SLOTS.forEach(function (k) { var list = ITEMS[k]; EQUIP[k] = Math.random() < (k === "flags" ? .5 : .9) ? list[(Math.random() * list.length) | 0].id : null; });
@@ -2449,7 +2477,7 @@ document.documentElement.className = "js";
     { n: "The Red Warrior", r: "Wusheng · 武生", robe: P.red, trim: P.white, sash: P.navy, pom: [P.red, P.lime, P.white], flags: false, preset: { robe: "armour", head: "pheasant", face: "red", weapon: "spear", prop: null, flags: null, c: P.red } },
     { n: "The Scholar", r: "Sheng · 生", robe: P.aqua, trim: P.white, sash: P.navy, pom: [P.aqua, P.white, P.navy], flags: false, preset: { robe: "scholar", head: "scholarhat", face: null, weapon: null, prop: "fan", flags: null, c: P.aqua } },
     { n: "The General", r: "Painted face · 净", robe: P.navy, trim: P.lime, sash: P.red, pom: [P.lime, P.red, P.white], flags: false, preset: { robe: "dragon", head: "general", face: "blueface", weapon: "guandao", prop: null, flags: null, c: P.navy } },
-    { n: "The Bloom", r: "Huadan · 旦", robe: P.grey, trim: P.white, sash: P.red, pom: [P.red, P.aqua, P.white], flags: false, preset: { robe: "huadan", head: "phoenix", face: "huadanface", weapon: null, prop: "lantern", flags: null, c: P.grey } },
+    { n: "The Bloom", r: "Huadan · 旦", robe: P.grey, trim: P.white, sash: P.red, pom: [P.red, P.aqua, P.white], flags: false, preset: { g: "girl", robe: "huadan", head: "phoenix", face: "huadanface", weapon: null, prop: "lantern", flags: null, c: P.grey } },
     { n: "The Guard", r: "Armoured · 武", robe: P.black, trim: P.red, sash: P.red, pom: [P.red, P.lime, P.white], flags: true, preset: { robe: "armour", head: "general", face: "blackface", weapon: "jian", prop: "flag", flags: "redflags", c: P.black } }
   ];
   function drawFigure(canvas, p) {
@@ -2483,6 +2511,7 @@ document.documentElement.className = "js";
     });
     function dressUp(p) {
       var ps = p.preset;
+      if (window.__setGender) window.__setGender(ps.g || "boy");
       SLOTS.forEach(function (k) { EQUIP[k] = ps[k] || null; });
       robeColor = ps.c; activeTab = "robe"; renderPanel(); renderFigure("robe");
       if (!reduce) SLOTS.forEach(function (k) { var g = figure.querySelector('.slot[data-slot="' + k + '"]'); if (g) g.classList.add("popin"); });
