@@ -779,6 +779,21 @@ html.splashing .nav{ transform:translateY(-110%); }
 .farm__now h3{ font-size:clamp(1.6rem,3vw,2.2rem); margin:.2rem 0 .4rem; }
 .farm .gpart{ transition: opacity .5s var(--ease), transform .7s var(--snap); transform-box: fill-box; transform-origin: 50% 100%; }
 @media (max-width:900px){ .farm{ grid-template-columns:1fr; } }
+.dyes{ margin-top:3rem; }
+.dyes__head h3{ font-size:clamp(1.5rem,3vw,2.2rem); }
+.dyes__head p{ color:var(--muted); max-width:52ch; margin-top:.3rem; }
+.dyes__grid{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.8rem; margin-top:1.2rem; }
+.dye{ background:var(--white); color:var(--black); border:2.5px solid var(--black); border-radius:var(--r); padding:1rem .8rem; display:flex; flex-direction:column; align-items:flex-start; gap:.3rem; text-align:left; cursor:pointer; font:inherit;
+  box-shadow:0 5px 0 var(--black); transition: transform .2s var(--snap), box-shadow .2s; }
+.dye:hover{ transform:translateY(-4px); box-shadow:0 9px 0 var(--black); }
+.dye[aria-pressed="true"]{ outline:4px solid var(--navy); outline-offset:2px; }
+.dye svg{ width:56px; height:56px; image-rendering:pixelated; margin-bottom:.3rem; }
+.dye b{ font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:1.2rem; line-height:1.1; }
+.dye__part{ font-family:var(--pixel); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--navy); }
+.dye__col{ display:flex; align-items:center; gap:.45rem; font-size:.95rem; margin-top:auto; padding-top:.3rem; }
+.dye__col i{ width:18px; height:18px; border-radius:5px; border:2px solid var(--black); flex:none; }
+@media (max-width:1100px){ .dyes__grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:560px){ .dyes__grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
 .roof{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:clamp(1.2rem,4vw,2.8rem); align-items:center; margin-top:2.2rem; }
 .roof__vis{ border-radius:var(--r); border:2.5px solid var(--black); overflow:hidden; background:var(--white); box-shadow:var(--shadow); }
@@ -1432,7 +1447,7 @@ html.splashing .nav{ transform:translateY(-110%); }
     <div class="head fly">
       <span class="floorbadge"><b>&#9632;</b> Third floor</span>
       <h2>The Urban Dye Farm</h2>
-      <p class="lede">Grow indigo and dye plants, harvest them, and turn them into real paint with an artisan. Then take your colours back down to paint your 3D printed character and your masks and props.</p>
+      <p class="lede">Grow indigo, turmeric, butterfly pea and other dye plants, harvest them, and turn them into real paint with an artisan. Every plant gives a different colour. Then take your colours back down to paint your 3D printed character and your masks and props.</p>
     </div>
     <div class="farm">
       <div class="fly fly--l">
@@ -1453,16 +1468,17 @@ html.splashing .nav{ transform:translateY(-110%); }
   <g>
     <rect x="20" y="300" width="100" height="30" fill="#3c3c3c"/><rect x="135" y="300" width="100" height="30" fill="#3c3c3c"/><rect x="250" y="300" width="100" height="30" fill="#3c3c3c"/>
     <rect x="20" y="300" width="100" height="5" fill="#9ec0bd"/><rect x="135" y="300" width="100" height="5" fill="#9ec0bd"/><rect x="250" y="300" width="100" height="5" fill="#9ec0bd"/>
+    <text x="70" y="322" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700" letter-spacing="1">INDIGO</text><text x="185" y="322" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700" letter-spacing="1">TURMERIC</text><text x="300" y="322" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700" letter-spacing="1">BUTTERFLY PEA</text>
   </g>
   <g id="fSeeds" class="gpart"><g fill="#c1ff72"><rect x="45" y="294" width="8" height="6"/><rect x="85" y="294" width="8" height="6"/><rect x="160" y="294" width="8" height="6"/><rect x="200" y="294" width="8" height="6"/><rect x="275" y="294" width="8" height="6"/><rect x="315" y="294" width="8" height="6"/></g></g>
   <g id="fPlants" class="gpart" style="transform:scaleY(0)">
     <g id="fPlantSet">
-      <g transform="translate(49 300)"><rect x="-2" y="-110" width="4" height="110" fill="#3c3c3c"/><rect x="-26" y="-70" width="24" height="12" fill="#c1ff72"/><rect x="2" y="-90" width="24" height="12" fill="#c1ff72"/><rect x="-24" y="-40" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-55" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-124" width="14" height="14" fill="#0137c4"/></g>
-      <g transform="translate(89 300)"><rect x="-2" y="-90" width="4" height="90" fill="#3c3c3c"/><rect x="-24" y="-60" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-76" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-38" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-104" width="14" height="14" fill="#0137c4"/></g>
-      <g transform="translate(164 300)"><rect x="-2" y="-120" width="4" height="120" fill="#3c3c3c"/><rect x="-26" y="-80" width="24" height="12" fill="#c1ff72"/><rect x="2" y="-100" width="24" height="12" fill="#c1ff72"/><rect x="-24" y="-46" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-60" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-134" width="14" height="14" fill="#0137c4"/></g>
-      <g transform="translate(204 300)"><rect x="-2" y="-96" width="4" height="96" fill="#3c3c3c"/><rect x="-24" y="-66" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-82" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-40" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-110" width="14" height="14" fill="#48c8e9"/></g>
-      <g transform="translate(279 300)"><rect x="-2" y="-108" width="4" height="108" fill="#3c3c3c"/><rect x="-26" y="-74" width="24" height="12" fill="#c1ff72"/><rect x="2" y="-92" width="24" height="12" fill="#c1ff72"/><rect x="-24" y="-44" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-122" width="14" height="14" fill="#0137c4"/></g>
-      <g transform="translate(319 300)"><rect x="-2" y="-88" width="4" height="88" fill="#3c3c3c"/><rect x="-24" y="-60" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-74" width="22" height="12" fill="#c1ff72"/><rect x="2" y="-36" width="22" height="12" fill="#c1ff72"/><rect x="-7" y="-102" width="14" height="14" fill="#d83d40"/></g>
+      <g transform="translate(49 300)"><rect x="-2" y="-104" width="4" height="104" fill="#3c3c3c"/><rect x="-26" y="-66.56" width="22" height="10" fill="#c1ff72"/><rect x="2" y="-85.28" width="22" height="10" fill="#c1ff72"/><rect x="-24" y="-37.44" width="22" height="10" fill="#c1ff72"/><rect x="2" y="-52" width="22" height="10" fill="#c1ff72"/><rect x="-22" y="-93.6" width="22" height="10" fill="#c1ff72"/><rect x="-7" y="-116" width="6" height="6" fill="#0137c4"/><rect x="1" y="-120" width="6" height="6" fill="#0137c4"/><rect x="-3" y="-126" width="6" height="6" fill="#0137c4"/></g>
+      <g transform="translate(89 300)"><rect x="-2" y="-88" width="4" height="88" fill="#3c3c3c"/><rect x="-26" y="-56.32" width="22" height="10" fill="#c1ff72"/><rect x="2" y="-72.16" width="22" height="10" fill="#c1ff72"/><rect x="-24" y="-31.68" width="22" height="10" fill="#c1ff72"/><rect x="2" y="-44" width="22" height="10" fill="#c1ff72"/><rect x="-22" y="-79.2" width="22" height="10" fill="#c1ff72"/><rect x="-7" y="-100" width="6" height="6" fill="#0137c4"/><rect x="1" y="-104" width="6" height="6" fill="#0137c4"/><rect x="-3" y="-110" width="6" height="6" fill="#0137c4"/></g>
+      <g transform="translate(164 300)"><rect x="-22" y="-57.2" width="12" height="57.2" fill="#c1ff72"/><rect x="-22" y="-67.2" width="8" height="10" fill="#c1ff72"/><rect x="-17" y="-59.2" width="2" height="59.2" fill="#9ec0bd"/><rect x="-6" y="-86" width="12" height="86" fill="#c1ff72"/><rect x="-4" y="-96" width="8" height="10" fill="#c1ff72"/><rect x="-1" y="-88" width="2" height="88" fill="#9ec0bd"/><rect x="10" y="-64.88" width="12" height="64.88" fill="#c1ff72"/><rect x="14" y="-74.88" width="8" height="10" fill="#c1ff72"/><rect x="15" y="-66.88" width="2" height="66.88" fill="#9ec0bd"/><rect x="-2" y="-116" width="6" height="18" fill="#ffffff"/><rect x="-1" y="-122" width="4" height="6" fill="#d83d40"/></g>
+      <g transform="translate(204 300)"><rect x="-22" y="-46" width="12" height="46" fill="#c1ff72"/><rect x="-22" y="-56" width="8" height="10" fill="#c1ff72"/><rect x="-17" y="-48" width="2" height="48" fill="#9ec0bd"/><rect x="-6" y="-70" width="12" height="70" fill="#c1ff72"/><rect x="-4" y="-80" width="8" height="10" fill="#c1ff72"/><rect x="-1" y="-72" width="2" height="72" fill="#9ec0bd"/><rect x="10" y="-52.4" width="12" height="52.4" fill="#c1ff72"/><rect x="14" y="-62.4" width="8" height="10" fill="#c1ff72"/><rect x="15" y="-54.4" width="2" height="54.4" fill="#9ec0bd"/><rect x="-2" y="-100" width="6" height="18" fill="#ffffff"/><rect x="-1" y="-106" width="4" height="6" fill="#d83d40"/></g>
+      <g transform="translate(279 300)"><rect x="-2" y="-112" width="4" height="112" fill="#9ec0bd"/><rect x="2" y="-16" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-32" width="12" height="8" fill="#c1ff72"/><rect x="2" y="-48" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-64" width="12" height="8" fill="#c1ff72"/><rect x="2" y="-80" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-96" width="12" height="8" fill="#c1ff72"/><rect x="2" y="-112" width="12" height="8" fill="#c1ff72"/><rect x="6" y="-45.2" width="12" height="12" fill="#48c8e9"/><rect x="10" y="-41.2" width="4" height="4" fill="#0137c4"/><rect x="-16" y="-73.2" width="12" height="12" fill="#48c8e9"/><rect x="-12" y="-69.2" width="4" height="4" fill="#0137c4"/><rect x="6" y="-97.84" width="12" height="12" fill="#48c8e9"/><rect x="10" y="-93.84" width="4" height="4" fill="#0137c4"/><rect x="-14" y="-118" width="12" height="12" fill="#48c8e9"/><rect x="-10" y="-114" width="4" height="4" fill="#0137c4"/></g>
+      <g transform="translate(319 300)"><rect x="-2" y="-92" width="4" height="92" fill="#9ec0bd"/><rect x="2" y="-16" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-32" width="12" height="8" fill="#c1ff72"/><rect x="2" y="-48" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-64" width="12" height="8" fill="#c1ff72"/><rect x="2" y="-80" width="12" height="8" fill="#c1ff72"/><rect x="-14" y="-96" width="12" height="8" fill="#c1ff72"/><rect x="6" y="-38.2" width="12" height="12" fill="#48c8e9"/><rect x="10" y="-34.2" width="4" height="4" fill="#0137c4"/><rect x="-16" y="-61.2" width="12" height="12" fill="#48c8e9"/><rect x="-12" y="-57.2" width="4" height="4" fill="#0137c4"/><rect x="6" y="-81.44" width="12" height="12" fill="#48c8e9"/><rect x="10" y="-77.44" width="4" height="4" fill="#0137c4"/><rect x="-14" y="-98" width="12" height="12" fill="#48c8e9"/><rect x="-10" y="-94" width="4" height="4" fill="#0137c4"/></g>
     </g>
   </g>
   <!-- harvest basket -->
@@ -1473,9 +1489,9 @@ html.splashing .nav{ transform:translateY(-110%); }
   </g>
   <!-- processing vat with artisan -->
   <g id="fVat" class="gpart" opacity="0">
-    <rect x="410" y="246" width="84" height="84" fill="#3c3c3c"/><rect x="416" y="252" width="72" height="24" fill="#0137c4"/>
+    <rect x="410" y="246" width="84" height="84" fill="#3c3c3c"/><rect id="fVatLiquid" x="416" y="252" width="72" height="24" fill="#0137c4" style="transition:fill .4s"/>
     <g fill="#48c8e9"><rect x="430" y="240" width="8" height="8"/><rect x="452" y="232" width="6" height="6"/><rect x="470" y="242" width="8" height="8"/></g>
-    <text x="452" y="314" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700" letter-spacing="1">INDIGO VAT</text>
+    <text x="452" y="302" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700" letter-spacing=".5" id="fVatLabel">INDIGO</text><text x="452" y="318" text-anchor="middle" fill="#9ec0bd" font-size="10" font-weight="700" letter-spacing="1">VAT</text>
     <g transform="translate(518 220)"><rect x="4" y="0" width="22" height="20" fill="#ffffff" stroke="#3c3c3c" stroke-width="2"/><rect x="2" y="-8" width="26" height="8" fill="#9ec0bd"/><rect x="0" y="20" width="30" height="50" fill="#d83d40"/><rect x="-26" y="26" width="26" height="8" fill="#d83d40"/><rect x="-30" y="10" width="4" height="40" fill="#3c3c3c"/><rect x="6" y="70" width="7" height="40" fill="#3c3c3c"/><rect x="17" y="70" width="7" height="40" fill="#3c3c3c"/></g>
     <text x="532" y="204" text-anchor="middle" fill="#3c3c3c" font-size="12" font-weight="700">ARTISAN</text>
   </g>
@@ -1512,10 +1528,17 @@ html.splashing .nav{ transform:translateY(-110%); }
         <div class="farm__now" aria-live="polite">
           <small id="farmWhere">In the farm</small>
           <h3 id="farmTitle">Plant</h3>
-          <p id="farmText">Push a seed into the soil. Indigo grows well in Singapore's warm weather.</p>
+          <p id="farmText">Push a seed into the soil. Indigo, turmeric and butterfly pea all love Singapore's warm weather.</p>
         </div>
-        <ul class="chips"><li>Indigo</li><li>Dye plants</li><li>Paint</li><li>Dyed cloth</li><li>Costumes</li></ul>
+        <ul class="chips"><li>Plant paint</li><li>Dyed cloth</li><li>Costumes</li><li>Masks</li><li>Characters</li></ul>
       </div>
+    </div>
+    <div class="dyes">
+      <div class="dyes__head fly">
+        <h3>What grows in the dye farm</h3>
+        <p>Each plant hides a colour in a different part. Tap a plant to fill the vat in the Paint Lab.</p>
+      </div>
+      <div class="dyes__grid" id="dyes" data-stagger></div>
     </div>
   </div>
 </section>
@@ -1888,7 +1911,7 @@ document.documentElement.className = "js";
     { id: "makeup", kind: "workshop", title: "Opera Makeup for Beginners", desc: "Watch a troupe artist paint their face, then try the basics yourself.", c: P.red, t: P.white, age: "Age 8+", place: "Makeup Studio · 2nd floor", dur: "60 min", times: ["12:00", "15:00"], off: 5 },
     { id: "showcase", kind: "show", title: "Our Characters on Stage", desc: "Kids from this month's workshops perform with the characters they built.", c: P.lime, age: "All ages", place: "Black Box · 1st floor", dur: "40 min", times: ["16:00"], off: 6 },
     { id: "marketday", kind: "family", title: "Maker Market Day", desc: "The Black Box turns into a market. Shop the characters, masks and props kids made.", c: P.grey, age: "Everyone", place: "Black Box · 1st floor", dur: "10am to 6pm", times: ["10:00", "13:00", "16:00"], off: 6 },
-    { id: "indigo", kind: "workshop", title: "Indigo Harvest Day", desc: "Pick indigo leaves on the roof and turn them into blue paint.", c: P.navy, t: P.white, age: "Age 6+", place: "Dye Farm · 3rd floor", dur: "75 min", times: ["10:00", "15:30"], off: 7 }
+    { id: "indigo", kind: "workshop", title: "Dye Harvest Day", desc: "Pick indigo leaves, turmeric roots and butterfly pea flowers on the roof and turn them into paint.", c: P.navy, t: P.white, age: "Age 6+", place: "Dye Farm · 3rd floor", dur: "75 min", times: ["10:00", "15:30"], off: 7 }
   ];
   var KIND = { show: "Show", workshop: "Workshop", family: "Family day" };
   var today = new Date(); today.setHours(0, 0, 0, 0);
@@ -2568,13 +2591,38 @@ document.documentElement.className = "js";
 
   /* ============ DYE FARM ============ */
   var FARM = [
-    { w: "In the farm", t: "Plant", p: "Push a seed into the soil. Indigo grows well in Singapore's warm weather." },
+    { w: "In the farm", t: "Plant", p: "Push a seed into the soil. Indigo, turmeric and butterfly pea all love Singapore's warm weather." },
     { w: "In the farm", t: "Grow", p: "Sunlight pours through the glass roof and rainwater from the tank keeps the plants happy." },
-    { w: "In the farm", t: "Harvest", p: "Snip the leaves and fill your basket. Indigo leaves hold the blue colour." },
-    { w: "Paint Lab · behind the farm", t: "Process", p: "With an artisan, soak the leaves in the vat so the colour comes out." },
-    { w: "Paint Lab · behind the farm", t: "Paint", p: "The colour becomes paint and dye. Blue from indigo, and more colours from other plants." },
+    { w: "In the farm", t: "Harvest", p: "Pick the part that holds the colour: indigo leaves, turmeric roots, butterfly pea flowers and roselle cups." },
+    { w: "Paint Lab · behind the farm", t: "Process", p: "With an artisan, soak, boil or grind the plants in the vat so the colour comes out." },
+    { w: "Paint Lab · behind the farm", t: "Paint", p: "The colour becomes paint and dye. Blue from indigo, yellow from turmeric, bright blue from butterfly pea and red from roselle." },
     { w: "Back downstairs", t: "Use it", p: "Take your paint down to colour your 3D printed character in the Recycling Centre, and your masks and props in the workshops." }
   ];
+  /* dye plants: tap one to fill the vat */
+  var DYES = [
+    { n: "Indigo", part: "Leaves", col: "Deep blue", c: P.navy, ico: [[7, 3, 2, 12, P.black], [3, 5, 4, 2, P.lime], [9, 4, 4, 2, P.lime], [3, 9, 4, 2, P.lime], [9, 8, 4, 2, P.lime], [6, 1, 4, 2, P.navy], [7, 0, 2, 1, P.navy]] },
+    { n: "Turmeric", part: "Roots", col: "Golden yellow", c: P.lime, ico: [[4, 2, 2, 9, P.lime], [7, 1, 2, 10, P.lime], [10, 3, 2, 8, P.lime], [3, 11, 10, 2, P.black], [4, 13, 3, 2, P.lime], [8, 13, 4, 2, P.lime]] },
+    { n: "Butterfly Pea", part: "Flowers", col: "Bright blue", c: P.aqua, ico: [[7, 2, 2, 13, P.grey], [3, 3, 4, 4, P.aqua], [4, 4, 2, 2, P.navy], [9, 7, 4, 4, P.aqua], [10, 8, 2, 2, P.navy], [3, 10, 4, 2, P.lime], [9, 12, 4, 2, P.lime]] },
+    { n: "Roselle", part: "Flower cups", col: "Ruby red", c: P.red, ico: [[7, 8, 2, 7, P.black], [4, 9, 3, 2, P.lime], [9, 11, 3, 2, P.lime], [5, 2, 6, 6, P.red], [6, 1, 4, 1, P.red], [7, 3, 2, 2, P.white]] },
+    { n: "Pandan", part: "Leaves", col: "Fresh green", c: P.lime, ico: [[2, 4, 2, 10, P.lime], [5, 1, 2, 13, P.lime], [8, 2, 2, 12, P.lime], [11, 5, 2, 9, P.lime], [6, 1, 1, 13, P.white], [1, 14, 14, 1, P.black]] },
+    { n: "Mangosteen", part: "Fruit skin", col: "Charcoal", c: P.black, ico: [[4, 5, 8, 8, P.black], [5, 4, 6, 1, P.black], [6, 2, 4, 2, P.lime], [7, 1, 2, 1, P.lime], [5, 6, 2, 2, P.grey]] }
+  ];
+  var dyesWrap = $("#dyes");
+  if (dyesWrap) {
+    DYES.forEach(function (d, i) {
+      var ic = d.ico.map(function (r) { return '<rect x="' + r[0] + '" y="' + r[1] + '" width="' + r[2] + '" height="' + r[3] + '" fill="' + r[4] + '"/>'; }).join("");
+      var b = el("button", "dye fly fly--pop", '<svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">' + ic + '</svg><b>' + d.n + '</b><span class="dye__part">' + d.part + '</span><span class="dye__col"><i style="background:' + d.c + '"></i>' + d.col + '</span>');
+      b.type = "button"; b.setAttribute("aria-pressed", String(i === 0));
+      b.addEventListener("click", function () {
+        $$(".dye", dyesWrap).forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        var liq = $("#fVatLiquid"), lab = $("#fVatLabel");
+        if (liq) liq.setAttribute("fill", d.c);
+        if (lab) lab.textContent = d.n.toUpperCase();
+        if (farmSteps) { fAuto = false; if (fTimer) { clearInterval(fTimer); fTimer = null; } fi = 3; setFarm(3); }
+      });
+      dyesWrap.appendChild(b);
+    });
+  }
   var farmSteps = $("#farmSteps");
   function setFarm(i) {
     var f = FARM[i];
@@ -2642,7 +2690,7 @@ document.documentElement.className = "js";
   /* ============ MAP ============ */
   var FLOORS = [
     { n: "3", name: "Third floor", sub: "Dye farm under the solar glass roof", c: P.lime, rooms: [
-      ["Urban Dye Farm", "Grow and harvest indigo and dye plants.", "#grow"], ["Paint Lab", "Behind the farm. Turn plants into paint with artisans.", "#grow"],
+      ["Urban Dye Farm", "Grow indigo, turmeric, butterfly pea and more dye plants.", "#grow"], ["Paint Lab", "Behind the farm. Turn plants into paint with artisans.", "#grow"],
       ["Glass box solar roof", "Sunlight in for the plants, power out for the building.", "#roof"], ["Rainwater harvesting", "Rain is stored in a tank and waters the farm.", "#roof"], ["Office", "Where the Operaverse team plans every show and workshop.", null]] },
     { n: "M", name: "Mezzanine", sub: "The parents' lounge", c: P.aqua, rooms: [
       ["Parents' Lounge", "Grown-ups relax with a view over the floor below while the kids make.", "#make"]] },
